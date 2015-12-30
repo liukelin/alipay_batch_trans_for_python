@@ -14,6 +14,7 @@
 
 #  *************************注意*************************
 #  * 调试通知返回时，可查看或改写log日志的写入TXT里的数据，来检查通知返回是否正常
+import time
 import alipay_core_function
 import alipay_md5_function
 
@@ -38,15 +39,18 @@ class AlipayNotify :
      # @return 验证结果
      #
     def verifyNotify (self, request_data) :
+
         if len(request_data) ==0 :     #判断POST来的数组是否为空
             return False
         else :
+            if request_data.has_key('sign')==False :
+                return False
             #生成签名结果
             isSign = self.getSignVeryfy(request_data, request_data["sign"])
 
             #获取支付宝远程服务器ATN结果（验证是否是支付宝发来的消息）
             responseTxt = 'false'
-            if request_data["notify_id"]!='' :
+            if request_data.has_key('notify_id') == True :
                 responseTxt = self.getResponse(self, request_data["notify_id"])
             
             #写日志记录
@@ -55,9 +59,14 @@ class AlipayNotify :
             # }else {
             #   $isSignStr = 'false';
             # }
-            # $log_text = "responseTxt=".$responseTxt."\n notify_url_log:isSign=".$isSignStr.",";
-            # $log_text = $log_text.createLinkString($_POST);
+            log_text = "responseTxt=%s notify_url_log:isSign=%s,%s" % (responseTxt, isSign, alipay_core_function.createLinkstring(request_data))
             # logResult($log_text);
+            # utils.loggers.use('pay_alipay', send_log_file_).info("TransnotifyurlHandler_verifyNotify,%s" % (log_text))
+
+            file_object = open('verifyNotify_logs.txt', 'a')
+            time_ = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
+            file_object.write(" 执行日期:%s,%s\n" %(time_, log_text))
+            file_object.close( )
             
             #验证
             #$responsetTxt的结果不是true，与服务器设置问题、合作身份者ID、notify_id一分钟失效有关
@@ -81,7 +90,7 @@ class AlipayNotify :
             
             #获取支付宝远程服务器ATN结果（验证是否是支付宝发来的消息）
             responseTxt = 'false'
-            if request_data["notify_id"] != '' :
+            if request_data.has_key('notify_id') == True :
                 responseTxt = self.getResponse(self, request_data["notify_id"])
             #写日志记录
             # if ($isSign) {

@@ -22,7 +22,7 @@ def alipay_pay(data = {}):
     #必填
 
     #付款账户名
-    account_name = 'xxxx有限公司' #data['WIDaccount_name']
+    account_name = 'xxxx科技有限公司' #data['WIDaccount_name']
     #必填，个人支付宝账号是真实姓名公司支付宝账号是公司名称
 
     #付款当天日期
@@ -65,3 +65,25 @@ def alipay_pay(data = {}):
     alipaySubmit = alipay_submit_class.AlipaySubmit(config_)
     html_text = alipaySubmit.buildRequestForm(parameter, "get", "ok")
     return html_text
+
+# 支付宝服务器异步通知
+def nottify_url(request_data) :
+    #计算得出通知验证结果
+    config_ = alipay_config_class.alipay_config()
+    #计算得出通知验证结果
+    alipayNotify = alipay_notify_class.AlipayNotify(config_)
+    verify_result = alipayNotify.verifyNotify(request_data)
+
+    if verify_result :    #验证成功
+        #批量付款数据中转账成功的详细信息
+        # $success_details = $_POST['success_details'];
+        # #批量付款数据中转账失败的详细信息
+        # $fail_details = $_POST['fail_details'];
+        # echo "success";  
+        #调试用，写文本函数记录程序运行情况是否正常
+        #logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
+        return True
+    else :
+        #验证失败
+        # "fail"
+        return False
