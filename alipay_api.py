@@ -14,15 +14,15 @@ def alipay_pay(data = {}):
     date_ = time.strftime("%Y%m%d",time.localtime(time.time()))
 
     #服务器异步通知页面路径
-    notify_url = "http://qiandeer.com/notify_url.php";
+    notify_url = "http://xxxx.com/notify_url.php";
     #需http://格式的完整路径，不允许加?id=123这类自定义参数
 
     #付款账号
-    email = 'qianlupingtai@126.com'#data['WIDemail']
+    email = 'xxxx@126.com'#data['WIDemail']
     #必填
 
     #付款账户名
-    account_name = '淮安创跃信息科技有限公司' #data['WIDaccount_name']
+    account_name = 'xxxx有限公司' #data['WIDaccount_name']
     #必填，个人支付宝账号是真实姓名公司支付宝账号是公司名称
 
     #付款当天日期
