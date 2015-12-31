@@ -7,6 +7,11 @@ import alipay_config as alipay_config_class
 from lib import alipay_submit_class
 from lib import alipay_notify_class
 
+#
+# 请求支付
+# @param data 请求post数据
+# @return 支付跳转from表单
+#
 def alipay_pay(data = {}):
     config_ = alipay_config_class.alipay_config()
 
@@ -67,6 +72,8 @@ def alipay_pay(data = {}):
     return html_text
 
 # 支付宝服务器异步通知
+# @param request_data 请求post数据
+# @return 支付跳转from表单
 def nottify_url(request_data) :
     #计算得出通知验证结果
     config_ = alipay_config_class.alipay_config()

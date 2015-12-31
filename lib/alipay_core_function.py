@@ -89,11 +89,11 @@ def argSort(para) :
     keys.sort()
     return keys
 
-""""
- * 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
- * 注意：服务器需要开通fopen配置
- * @param $word 要写入日志里的文本内容 默认值：空值
- """
+# 
+# 写日志，方便测试（看网站需求，也可以改成把记录存入数据库）
+# 注意：服务器需要开通fopen配置
+# @param $word 要写入日志里的文本内容 默认值：空值
+# 
 def logResult(word='') :
     file_object = open('log.txt', 'a')
     time_ = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(time.time()))
@@ -101,17 +101,17 @@ def logResult(word='') :
     file_object.close( )
 
 
-"""
- * 远程获取数据，POST模式 (这里就用request算了)
- * 注意：
- * 1.使用Crul需要修改服务器中php.ini文件的设置，找到php_curl.dll去掉前面的";"就行了
- * 2.文件夹中cacert.pem是SSL证书请保证其路径有效，目前默认路径是：getcwd().'\\cacert.pem'
- * @param $url 指定URL完整路径地址
- * @param $cacert_url 指定当前工作目录绝对路径
- * @param $para 请求的数据
- * @param $input_charset 编码格式。默认值：空值
- * return 远程输出的数据
- """
+# 
+# 远程获取数据，POST模式 (这里就用request算了)
+# 注意：
+# 1.使用Crul需要修改服务器中php.ini文件的设置，找到php_curl.dll去掉前面的";"就行了
+# 2.文件夹中cacert.pem是SSL证书请保证其路径有效，目前默认路径是：getcwd().'\\cacert.pem'
+# @param $url 指定URL完整路径地址
+# @param $cacert_url 指定当前工作目录绝对路径
+# @param $para 请求的数据
+# @param $input_charset 编码格式。默认值：空值
+# return 远程输出的数据
+#  
 def getHttpResponsePOST(url, cacert_url, para, input_charset = '') :
     if input_charset.lstrip() != '':
         url = "%s_input_charset=%s" %(url,  input_charset )
@@ -138,15 +138,15 @@ def getHttpResponsePOST(url, cacert_url, para, input_charset = '') :
     f.close()
     return responseText
 
-"""
- * 远程获取数据，GET模式 (这里就用request算了)
- * 注意：
- * 1.使用Crul需要修改服务器中php.ini文件的设置，找到php_curl.dll去掉前面的";"就行了
- * 2.文件夹中cacert.pem是SSL证书请保证其路径有效，目前默认路径是：getcwd().'\\cacert.pem'
- * @param $url 指定URL完整路径地址
- * @param $cacert_url 指定当前工作目录绝对路径
- * return 远程输出的数据
- """
+# 
+# 远程获取数据，GET模式 (这里就用request算了)
+# 注意：
+# 1.使用Crul需要修改服务器中php.ini文件的设置，找到php_curl.dll去掉前面的";"就行了
+# 2.文件夹中cacert.pem是SSL证书请保证其路径有效，目前默认路径是：getcwd().'\\cacert.pem'
+# @param $url 指定URL完整路径地址
+# @param $cacert_url 指定当前工作目录绝对路径
+# return 远程输出的数据
+# 
 def  getHttpResponseGET(url, cacert_url ) :
     # responseText = requests.get(url)
     curl = pycurl.Curl()
@@ -169,13 +169,13 @@ def  getHttpResponseGET(url, cacert_url ) :
     f.close()
     return responseText
 
-""""
- * 实现多种字符编码方式
- * @param $input 需要编码的字符串
- * @param $_output_charset 输出的编码格式
- * @param $_input_charset 输入的编码格式
- * return 编码后的字符串
- """
+# 
+# 实现多种字符编码方式
+# @param $input 需要编码的字符串
+# @param $_output_charset 输出的编码格式
+# @param $_input_charset 输入的编码格式
+# return 编码后的字符串
+# 
 def charsetEncode( input, _output_charset , _input_charset):
     output = ""
     if not _output_charset :
